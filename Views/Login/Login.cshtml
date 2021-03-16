@@ -1,0 +1,236 @@
+﻿@model BookStoreProject.Models.Customer
+
+@{
+    Layout = null;
+}
+
+@*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>Login</title>
+    <style>
+        /*author:starttemplate*/
+        /*reference site : starttemplate.com*/
+        body {
+            /*background-image: url('https://i.redd.it/o8dlfk93azs31.jpg');*/
+            background-image: url('../../Images/LoginImage.jpg');
+            /*background-position: center;*/
+            background-size: contain;
+            /*background-repeat:no-repeat;*/
+            /*-webkit-font-smoothing: antialiased;
+            font: normal 14px Roboto,arial,sans-serif;
+            font-family: 'Dancing Script', cursive !important;*/
+            font-size: 30px;
+            color: black;
+            font-family: futurastd-book,helvetica neue,Helvetica,Arial,sans-serif;
+        }
+
+        .container {
+            padding: 110px;
+        }
+
+        .placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #ffffff !important;
+            opacity: 1; /* Firefox */
+            font-size: 18px !important;
+        }
+
+        .form-login {
+            background-color: rgba(0,0,0,0.55);
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 15px;
+            border-color: #d2d2d2;
+            border-width: 5px;
+            color: white;
+            box-shadow: 0 1px 0 #cfcfcf;
+            width:400px;
+            margin:auto;
+        }
+
+        .form-control {
+            background: transparent !important;
+            color: white !important;
+            font-size: 18px !important;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+        }
+
+        h1 {
+            color: white !important;
+        }
+
+        h4 {
+            border: 0 solid #fff;
+            border-bottom-width: 1px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .text-white {
+            color: white !important;
+        }
+
+        .wrapper {
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 18px;
+        }
+        .input{
+            color:black !important;
+        }
+        .form-group input.input {
+            color: black !important;
+        }
+        label{
+            font-size:20px;
+        }
+        .button{
+            background-color:red;
+            width:100px;
+            height:40px;
+            border-radius:5px;
+            font-size:20px;
+            color:white;
+            cursor:pointer;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords"
+          content="unique login form,leamug login form,boostrap login form,responsive login form,free css html login form,download login form">
+    <meta name="author" content="leamug">
+    <title>Unique Login Form | Bootstrap Templates</title>
+    <!--<link href="css/style.css" rel="stylesheet" id="style">-->
+    <!-- Bootstrap core Library -->
+    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <!-- Font Awesome-->
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
+
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-5 col-md-4 text-center">
+               
+                <div class="form-login">
+                    <h4 class='text-white'>Customer Login</h4>
+                    @*<h4>Login Here</h4>*@
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @*<div class="form-horizontal">*@
+                        @*<h4>CustomerLogin</h4>*@
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                        @*@Html.LabelFor(model => model.CustomerEmail, htmlAttributes: new { @class = "text-danger" })*@
+                        @*<div class="col-md-10">*@
+                        <label> Email ID:</label>
+                        @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form -control input-sm chat-input input" } })
+                        @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
+                        @*<input type=@*"text" id="userName" class="form-control input-sm chat-input" placeholder="username" />*@
+                        </div>
+                        @*</div>*@
+                        //input - sm chat - input
+                        @*<div class="form-group">*@
+                        <br />
+                        @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-danger" })*@
+                        @*<div class="col-md-10">*@
+                        <label> Password: </label>
+                        @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        @*<input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />*@
+                        @*</div>
+            </div>*@
+                        <br /><br />
+                        <div class="wrapper">
+                            <span class="group-btn">
+                                <input type="submit" value="Login" class="button" />
+                            </span>
+                        </div>
+                        if(ViewBag.Message!=null)
+                        {
+                            <div>
+                                <p>@ViewBag.Message</p>
+                            </div>
+                        }
+                        @*</div>*@
+                    }
+                </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+@*<input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" />
+    </br></br>
+    <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+    </br></br>
+    <div class="wrapper">
+        <span class="group-btn">
+            <a href="#" class="btn btn-danger btn-md">login <i class="fa fa-sign-in"></i></a>
+        </span>
+    </div>*@
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <h4>CustomerLogin</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+            if (ViewBag.nouser == true)
+            {
+                <div>
+                    <p style="color:red">Invalid User Credentials. Try again</p>
+                </div>}
+            }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

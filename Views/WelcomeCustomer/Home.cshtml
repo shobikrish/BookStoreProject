@@ -1,0 +1,177 @@
+﻿@model IEnumerable<BookStoreProject.Models.Book>
+
+@{
+    //Layout = null;
+    Layout = "~/Views/Shared/_Customer_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    @*<p> @Html.ActionLink("View Cart", "View_Cart")</p>
+    <p> @Html.ActionLink("View Order Details", "ViewOrderDetails")</p>*@
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            width: 500px;
+            box-shadow: 0 3px 20px 0 rgb(0 0 0 / 12%);
+            border-radius: 5px;
+            padding: 10px;
+            font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 16px;
+            transition: transform 3s ease 3s;
+        }
+        .description {
+            height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: transform 3s ease 3s;
+            cursor: pointer;
+            text-align: justify;
+            transition-duration: 6s;
+        }
+        a{
+            text-decoration:none;
+            color:black;
+        }
+
+        .description:hover {
+            height: unset;
+            transition-duration: 6s;
+        }
+
+        .container-wrapper{
+            display:flex;
+            flex-wrap:wrap;
+        }
+
+        .left {
+            width: 35%;
+        }
+
+            .left img {
+                width: 100%;
+                height: 250px;
+            }
+
+        .right {
+            width: 63%;
+        }
+
+            .right div {
+                padding: 5px;
+            }
+        .name {
+            font-weight: 600;
+            font-size: 20px;
+            color: MediumSeaGreen;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h4>Welcome @ViewBag.Cname</h4>
+        <h4>Email id:@ViewBag.Cemail</h4>
+    </form>
+    @*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookAuthor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookLanguage)
+            </th>
+        </tr>*@
+        
+<div class="container-wrapper">
+
+
+
+    @foreach (var item in Model)
+    {
+        <div class="container">
+            <div class="left">
+                <img src="@Url.Content(item.BookImage)" />
+            </div>
+            <div class="right">
+                <div class="name"> @Html.DisplayFor(modelItem => item.BookName)</div>
+                <div class="author">@Html.DisplayFor(modelItem => item.BookAuthor)</div>
+                <div class="price">Rs @Html.DisplayFor(modelItem => item.BookPrice)</div>
+                <div class="description"> @Html.DisplayFor(modelItem => item.BookDescription)</div>
+                <div class="language"> @Html.DisplayFor(modelItem => item.BookLanguage)</div>
+                <div class="genre"> @Html.DisplayFor(modelItem => item.BookCategory)</div>
+                <div class="material-icons"> @Html.ActionLink("shopping_cart", "Add_To_Cart", new { BookId = item.BookId })</div>
+                <div class="material-icons">@Html.ActionLink("rate_review", "AddFeedBack", new { BookId = item.BookId })</div>
+                <div class="material-icons"> @Html.ActionLink("feedback", "FeedBack", new { BookId = item.BookId })</div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookAuthor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookDescription)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.BookImage)" width="100" height="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookLanguage)
+                </td>
+                <td>
+                    @Html.ActionLink("shopping_cart", "Add_To_Cart", new { BookId = item.BookId })
+                </td>
+                <td>
+                    @Html.ActionLink("rate_review", "AddFeedBack", new { BookId = item.BookId })
+                </td>
+                <td>
+                    @Html.ActionLink("feedback", "FeedBack", new { BookId = item.BookId })
+                </td>
+            </tr>*@
+    }
+</div>
+
+    @*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+</body>
+</html>

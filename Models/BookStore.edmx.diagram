@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6fdf2eba120c4dcf8fa022cdc69bbc7a" Name="Diagram1">
+        <EntityTypeShape EntityType="BookStoreModel.Book" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Customer" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.LoginDetail" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.AddtoCart" Width="1.5" PointX="4.875" PointY="3.125" />
+        <AssociationConnector Association="BookStoreModel.FK__AddtoCart__BookI__30C33EC3" />
+        <AssociationConnector Association="BookStoreModel.FK__AddtoCart__Custo__31B762FC" />
+        <EntityTypeShape EntityType="BookStoreModel.OrderDetail" Width="1.5" PointX="7" PointY="0.75" />
+        <AssociationConnector Association="BookStoreModel.FK__OrderDeta__BookI__40058253" />
+        <AssociationConnector Association="BookStoreModel.FK__OrderDeta__Custo__40F9A68C" />
+        <EntityTypeShape EntityType="BookStoreModel.FeedBack" Width="1.5" PointX="2.875" PointY="4.5" />
+        <AssociationConnector Association="BookStoreModel.FK__FeedBack__BookId__489AC854" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

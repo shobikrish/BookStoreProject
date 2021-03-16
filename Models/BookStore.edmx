@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AddtoCart">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="CustomerEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookName" Type="varchar" MaxLength="100" />
+          <Property Name="BookAuthor" Type="varchar" MaxLength="100" />
+          <Property Name="BookPrice" Type="float" />
+          <Property Name="BookDescription" Type="varchar(max)" />
+          <Property Name="BookImage" Type="varchar(max)" />
+          <Property Name="BookQuantity" Type="int" />
+          <Property Name="BookCategory" Type="varchar" MaxLength="20" />
+          <Property Name="BookLanguage" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerEmail" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerEmail" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CustomerPhoneno" Type="varchar" MaxLength="15" />
+          <Property Name="CustomerAddress" Type="varchar" MaxLength="100" />
+          <Property Name="CustomerPincode" Type="int" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="SNo" />
+          </Key>
+          <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookId" Type="int" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Feedback_Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="LoginDetails">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Role" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookId" Type="int" />
+          <Property Name="CustomerEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerPhoneno" Type="varchar" MaxLength="15" />
+          <Property Name="CustomerAddress" Type="varchar" MaxLength="100" />
+          <Property Name="CustomerPincode" Type="int" />
+          <Property Name="Price" Type="float" />
+        </EntityType>
+        <Association Name="FK__AddtoCart__BookI__30C33EC3">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="AddtoCart" Type="Self.AddtoCart" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="AddtoCart">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AddtoCart__Custo__31B762FC">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="AddtoCart" Type="Self.AddtoCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerEmail" />
+            </Principal>
+            <Dependent Role="AddtoCart">
+              <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FeedBack__BookId__489AC854">
+          <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
+          <End Role="FeedBack" Type="Self.FeedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="FeedBack">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__BookI__40058253">
+          <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Custo__40F9A68C">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerEmail" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookStoreModelStoreContainer">
+          <EntitySet Name="AddtoCart" EntityType="Self.AddtoCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AddtoCart__BookI__30C33EC3" Association="Self.FK__AddtoCart__BookI__30C33EC3">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="AddtoCart" EntitySet="AddtoCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AddtoCart__Custo__31B762FC" Association="Self.FK__AddtoCart__Custo__31B762FC">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="AddtoCart" EntitySet="AddtoCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FeedBack__BookId__489AC854" Association="Self.FK__FeedBack__BookId__489AC854">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="FeedBack" EntitySet="FeedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__BookI__40058253" Association="Self.FK__OrderDeta__BookI__40058253">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Custo__40F9A68C" Association="Self.FK__OrderDeta__Custo__40F9A68C">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BookAuthor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BookPrice" Type="Double" />
+          <Property Name="BookDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BookImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BookQuantity" Type="Int32" />
+          <Property Name="BookCategory" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BookLanguage" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AddtoCart" Relationship="BookStoreModel.FK__AddtoCart__BookI__30C33EC3" FromRole="Book" ToRole="AddtoCart" />
+          <NavigationProperty Name="OrderDetails" Relationship="BookStoreModel.FK__OrderDeta__BookI__40058253" FromRole="Book" ToRole="OrderDetail" />
+          <NavigationProperty Name="FeedBacks" Relationship="BookStoreModel.FK__FeedBack__BookId__489AC854" FromRole="Book" ToRole="FeedBack" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerEmail" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerPhoneno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPincode" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AddtoCarts" Relationship="BookStoreModel.FK__AddtoCart__Custo__31B762FC" FromRole="Customer" ToRole="AddtoCart" />
+          <NavigationProperty Name="OrderDetails" Relationship="BookStoreModel.FK__OrderDeta__Custo__40F9A68C" FromRole="Customer" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="LoginDetail">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="BookStoreEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetail" />
+          <EntitySet Name="AddtoCarts" EntityType="BookStoreModel.AddtoCart" />
+          <AssociationSet Name="FK__AddtoCart__BookI__30C33EC3" Association="BookStoreModel.FK__AddtoCart__BookI__30C33EC3">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="AddtoCart" EntitySet="AddtoCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AddtoCart__Custo__31B762FC" Association="BookStoreModel.FK__AddtoCart__Custo__31B762FC">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="AddtoCart" EntitySet="AddtoCarts" />
+          </AssociationSet>
+          <EntitySet Name="OrderDetails" EntityType="BookStoreModel.OrderDetail" />
+          <AssociationSet Name="FK__OrderDeta__BookI__40058253" Association="BookStoreModel.FK__OrderDeta__BookI__40058253">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Custo__40F9A68C" Association="BookStoreModel.FK__OrderDeta__Custo__40F9A68C">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <EntitySet Name="FeedBacks" EntityType="BookStoreModel.FeedBack" />
+          <AssociationSet Name="FK__FeedBack__BookId__489AC854" Association="BookStoreModel.FK__FeedBack__BookId__489AC854">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="FeedBack" EntitySet="FeedBacks" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="AddtoCart">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Book" Relationship="BookStoreModel.FK__AddtoCart__BookI__30C33EC3" FromRole="AddtoCart" ToRole="Book" />
+          <NavigationProperty Name="Customer" Relationship="BookStoreModel.FK__AddtoCart__Custo__31B762FC" FromRole="AddtoCart" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK__AddtoCart__BookI__30C33EC3">
+          <End Type="BookStoreModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="BookStoreModel.AddtoCart" Role="AddtoCart" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="AddtoCart">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AddtoCart__Custo__31B762FC">
+          <End Type="BookStoreModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="BookStoreModel.AddtoCart" Role="AddtoCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerEmail" />
+            </Principal>
+            <Dependent Role="AddtoCart">
+              <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookId" Type="Int32" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPhoneno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPincode" Type="Int32" />
+          <Property Name="Price" Type="Double" />
+          <NavigationProperty Name="Book" Relationship="BookStoreModel.FK__OrderDeta__BookI__40058253" FromRole="OrderDetail" ToRole="Book" />
+          <NavigationProperty Name="Customer" Relationship="BookStoreModel.FK__OrderDeta__Custo__40F9A68C" FromRole="OrderDetail" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK__OrderDeta__BookI__40058253">
+          <End Type="BookStoreModel.Book" Role="Book" Multiplicity="0..1" />
+          <End Type="BookStoreModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Custo__40F9A68C">
+          <End Type="BookStoreModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="BookStoreModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerEmail" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="CustomerEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="SNo" />
+          </Key>
+          <Property Name="SNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookId" Type="Int32" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Feedback_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Book" Relationship="BookStoreModel.FK__FeedBack__BookId__489AC854" FromRole="FeedBack" ToRole="Book" />
+        </EntityType>
+        <Association Name="FK__FeedBack__BookId__489AC854">
+          <End Type="BookStoreModel.Book" Role="Book" Multiplicity="0..1" />
+          <End Type="BookStoreModel.FeedBack" Role="FeedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="FeedBack">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookStoreModelStoreContainer" CdmEntityContainer="BookStoreEntities2">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="BookStoreModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookAuthor" ColumnName="BookAuthor" />
+                <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
+                <ScalarProperty Name="BookDescription" ColumnName="BookDescription" />
+                <ScalarProperty Name="BookImage" ColumnName="BookImage" />
+                <ScalarProperty Name="BookQuantity" ColumnName="BookQuantity" />
+                <ScalarProperty Name="BookCategory" ColumnName="BookCategory" />
+                <ScalarProperty Name="BookLanguage" ColumnName="BookLanguage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BookStoreModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="CustomerPhoneno" ColumnName="CustomerPhoneno" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerPincode" ColumnName="CustomerPincode" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginDetails">
+            <EntityTypeMapping TypeName="BookStoreModel.LoginDetail">
+              <MappingFragment StoreEntitySet="LoginDetails">
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddtoCarts">
+            <EntityTypeMapping TypeName="BookStoreModel.AddtoCart">
+              <MappingFragment StoreEntitySet="AddtoCart">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="BookStoreModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CustomerPincode" ColumnName="CustomerPincode" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerPhoneno" ColumnName="CustomerPhoneno" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedBacks">
+            <EntityTypeMapping TypeName="BookStoreModel.FeedBack">
+              <MappingFragment StoreEntitySet="FeedBack">
+                <ScalarProperty Name="Feedback_Description" ColumnName="Feedback_Description" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
